@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="MyFocusPlan — your space to plan your week, organize notes, and stay focused.">
+  <title>MyFocusPlan — Focus on What Matters</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    :root {
+      --bg: #080d19;
+      --panel: #10192b;
+      --text: #f4f7ff;
+      --muted: #a5b2c9;
+      --blue: #6c8cff;
+      --border: #25324a;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(1100px, 90%);
+      margin: auto;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      background: rgba(8, 13, 25, .95);
+    }
+
+    nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: -.7px;
+    }
+
+    .logo span { color: var(--blue); }
+
+    .nav-link {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 105px 0 80px;
+    }
+
+    .badge {
+      display: inline-block;
+      border: 1px solid #344568;
+      background: #131e35;
+      color: #b9c8ff;
+      border-radius: 30px;
+      padding: 7px 14px;
+      font-size: 13px;
+    }
+
+    h1 {
+      max-width: 850px;
+      margin: 24px auto 18px;
+      font-size: clamp(42px, 7vw, 76px);
+      line-height: 1.08;
+      letter-spacing: -3px;
+    }
+
+    h1 span {
+      background: linear-gradient(90deg, #91a8ff, #62d7e8);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .intro {
+      max-width: 650px;
+      margin: auto;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 32px;
+    }
+
+    .button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      padding: 13px 22px;
+      min-height: 48px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 15px;
+      transition: transform .2s, background .2s;
+    }
+
+    .button:hover { transform: translateY(-2px); }
+
+    .primary {
+      background: var(--blue);
+      color: #081126;
+    }
+
+    .secondary {
+      border: 1px solid var(--border);
+      background: var(--panel);
+    }
+
+    .small-note {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 18px;
+    }
+
+    .preview {
+      max-width: 820px;
+      margin: 55px auto 0;
+      border: 1px solid #34415a;
+      border-radius: 18px;
+      background: #101827;
+      padding: 22px;
+      text-align: left;
+      box-shadow: 0 25px 80px #0005;
+    }
+
+    .window-bar {
+      display: flex;
+      gap: 7px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 16px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      background: #63718b;
+      border-radius: 50%;
+    }
+
+    .preview-content {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      padding-top: 20px;
+    }
+
+    .preview-card {
+      padding: 20px 15px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #151f32;
+    }
+
+    .preview-card strong {
+      display: block;
+      margin: 8px 0 4px;
+    }
+
+    .preview-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    section { padding: 65px 0; }
+
+    .section-heading {
+      text-align: center;
+      font-size: 36px;
+      letter-spacing: -1px;
+      margin: 0 0 12px;
+    }
+
+    .section-description {
+      text-align: center;
+      color: var(--muted);
+      margin: 0 auto 35px;
+      max-width: 600px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 25px;
+      background: var(--panel);
+    }
+
+    .icon { font-size: 27px; }
+
+    .feature h3 { margin: 12px 0 8px; }
+
+    .feature p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .download-section {
+      text-align: center;
+      margin: 25px auto 75px;
+      padding: 55px 25px;
+      border: 1px solid #344568;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #111e39, #10192b);
+    }
+
+    .download-section h2 {
+      font-size: clamp(30px, 5vw, 45px);
+      margin: 0 0 10px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 25px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    @media (max-width: 650px) {
+      .hero { padding: 75px 0 50px; }
+      h1 { letter-spacing: -1.5px; }
+      .features { grid-template-columns: 1fr; }
+      .preview-content { grid-template-columns: 1fr; }
+      .section-heading { font-size: 30px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="container">
+      <a class="logo" href="#">MyFocus<span>Plan</span></a>
+      <a class="nav-link" href="#features">Features</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div class="badge">✦ Your productivity space</div>
+
+      <h1>Make room for<br><span>what matters.</span></h1>
+
+      <p class="intro">
+        Plan your week, organize your notes, and bring your tasks
+        together in one simple workspace.
+      </p>
+
+      <div class="actions">
+        <a class="button primary" href="#download">↓ Get MyFocusPlan</a>
+        <a class="button secondary" href="#features">Explore features</a>
+      </div>
+
+      <p class="small-note">Designed for focus. Built for your everyday life.</p>
+
+      <div class="preview">
+        <div class="window-bar">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+
+        <div class="preview-content">
+          <div class="preview-card">
+            <span>📅</span>
+            <strong>Weekly Planner</strong>
+            <p>See your week and organize your plans.</p>
+          </div>
+
+          <div class="preview-card">
+            <span>📝</span>
+            <strong>Notes</strong>
+            <p>Keep your thoughts and ideas together.</p>
+          </div>
+
+          <div class="preview-card">
+            <span>📁</span>
+            <strong>Folders</strong>
+            <p>Keep everything organized your way.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" id="features">
+      <h2 class="section-heading">Everything in one place.</h2>
+      <p class="section-description">
+        Spend less time organizing your day and more time doing what matters.
+      </p>
+
+      <div class="features">
+        <article class="feature">
+          <div class="icon">📅</div>
+          <h3>Plan your week</h3>
+          <p>Bring your plans together and get a clearer view of your week.</p>
+        </article>
+
+        <article class="feature">
+          <div class="icon">📝</div>
+          <h3>Capture your ideas</h3>
+          <p>Keep notes in one workspace so your thoughts stay organized.</p>
+        </article>
+
+        <article class="feature">
+          <div class="icon">📂</div>
+          <h3>Stay organized</h3>
+          <p>Use folders to keep your notes and plans easy to find.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="container" id="download">
+      <div class="download-section">
+        <h2>Your next productive day starts here.</h2>
+        <p class="section-description">
+          Get MyFocusPlan for your Windows computer.
+        </p>
+
+        <!-- We'll add the real installer link here after uploading it. -->
+        <a class="button primary" href="https://github.com/"
+           id="download-button">
+          Windows download — coming soon
+        </a>
+
+        <p class="small-note" id="download-note">
+          The installer will be available here after the official release is uploaded.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <span>© <span id="year"></span> MyFocusPlan</span>
+      <span>Focus on what matters.</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
